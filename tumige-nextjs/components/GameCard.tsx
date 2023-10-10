@@ -189,8 +189,8 @@ export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="MainTopPageisBuyImage">
-                  <div className="MainTopPageisBuy">
+                <div className="MainTopPageIsBuyImage">
+                  <div className="MainTopPageIsBuy">
                     <p>購入済み</p>
                     {!inputIsBuy ? (
                       <button onClick={handleClickFev}>
