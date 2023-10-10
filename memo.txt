@@ -1,0 +1,39 @@
+
+
+# バックエンド(Nest.js)
+[Nest.js]
+nest new api-lesson //プロジェクト作成
+
+DB：prism with PostgreSQL
+-----install prisma-----
+$ yarn add -D prisma
+$ yarn add @prisma/client
+$ npx prisma init
+------------------------
+----(start&reset) db----
+$ docker compose up -d
+$ docker compose rm -s -f -v
+------------------------
+prisma migrate and type generation
+//スキーマの設定をdocker-compose.ymlに反映
+$ npx prisma migrate dev 
+//DBの構造をGUI上で確認できる
+$ npx prisma studio
+//データ構造をTypeScriptで使えるようにする
+$ npx prisma generate
+
+
+Create module, controller, service
+nest g module auth
+nest g module user
+nest g module todo
+nest g module prisma
+nest g controller auth --no-spec
+nest g controller user --no-spec
+nest g controller todo --no-spec
+nest g service auth --no-spec
+nest g service user --no-spec
+nest g service todo --no-spec
+nest g service prisma --no-spec
+
+//URLをイジって飛んでも、検証して遷移できないようにする。//

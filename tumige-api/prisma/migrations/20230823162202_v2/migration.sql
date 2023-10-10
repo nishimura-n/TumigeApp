@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Favorite" ALTER COLUMN "rank" SET DATA TYPE TEXT;
