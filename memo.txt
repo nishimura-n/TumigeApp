@@ -36,4 +36,8 @@ nest g service user --no-spec
 nest g service todo --no-spec
 nest g service prisma --no-spec
 
+//ローカル起動
+nest: yarn start:dev
+next: yarn run dev
+
 //URLをイジって飛んでも、検証して遷移できないようにする。//
