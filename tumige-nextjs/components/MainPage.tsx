@@ -65,7 +65,7 @@ const MainPage = () => {
       <div className="MainPageContent">
         <div className="MainPageContentTop">
           {(() => {
-            if (router.pathname == "/Favorite") {
+            if (router.pathname == "/isBuy") {
               return (
                 <div className="GameBox">
                   <CreditScoreIcon sx={{ color: green[700] }} />

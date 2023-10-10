@@ -14,10 +14,10 @@ model User {
   email          String     @unique
   hashedPassword String
   nickName       String?
-  Favorite       Favorite[]
+  Tumige       Tumige[]
 }
 
-model Favorite {
+model Tumige {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -26,7 +26,7 @@ model Favorite {
   note      String?
   tag       String?
   rank      Int?     @default(5)
-  fav       Boolean? @default(false)
+  isBuy     Boolean? @default(false)
   fileName  String?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

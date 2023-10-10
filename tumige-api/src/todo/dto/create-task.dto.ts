@@ -19,5 +19,5 @@ export class CreateTaskDto {
 
   @IsString()
   @IsOptional()
-  fav: string;
+  isBuy: string;
 }

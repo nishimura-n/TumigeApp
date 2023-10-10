@@ -46,7 +46,7 @@ const Sidebar = () => {
   const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [priority, setPriority] = React.useState<boolean>(false);
-  let Favcount = 0;
+  let isBuycount = 0;
   let Priority5count = 0;
   let Priority4count = 0;
   let Priority3count = 0;
@@ -111,18 +111,18 @@ const Sidebar = () => {
           </div>
         </div>
       </Link>
-      <Link className="sidebar_Link" href="/Favorite">
+      <Link className="sidebar_Link" href="/isBuy">
         <div className="sidebar_box">
           <CreditScoreIcon sx={{ color: green[700] }} />
           <p>購入済み</p>
           <>
             {(() => {
               if (tasks != undefined) {
-                Favcount = tasks.filter((n) => n.fav === true).length;
+                isBuycount = tasks.filter((n) => n.isBuy === true).length;
               }
             })()}
           </>
-          <div className="sidebarCount">{Favcount}</div>
+          <div className="sidebarCount">{isBuycount}</div>
         </div>
       </Link>
       {priority ? (

@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { Favorite } from "@prisma/client";
+import { Tumige } from "@prisma/client";
 
 export const useTasks = () => {
   const router = useRouter();
   const getTasks = async () => {
-    const { data } = await axios.get<Favorite[]>(`http://localhost:3005/todo`);
+    const { data } = await axios.get<Tumige[]>(`http://localhost:3005/todo`);
     return data;
   };
-  return useQuery<Favorite[], Error>({
+  return useQuery<Tumige[], Error>({
     queryKey: ["tasks"],
     queryFn: getTasks,
     onError: (err: any) => {

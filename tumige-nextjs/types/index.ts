@@ -8,6 +8,6 @@ export type EditedTask = {
   note?: string | null;
   tag?: string | null;
   rank?: number | null;
-  fav?: boolean | null;
+  isBuy?: boolean | null;
   file?: File | null;
 };

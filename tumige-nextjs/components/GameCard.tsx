@@ -3,7 +3,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { green } from "@mui/material/colors";
 import { useTasks } from "../hooks/useTasks";
 import { FC } from "react";
-import { Favorite } from "@prisma/client";
+import { Tumige } from "@prisma/client";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutateGame } from "@/hooks/useMutateGame";
 import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
@@ -12,13 +12,13 @@ import DialogActions from "@mui/material/DialogActions";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { useRouter } from "next/router";
 
-export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
+export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
   id,
   title,
   note,
   tag,
   rank,
-  fav,
+  isBuy,
   updatedAt,
   fileName,
 }) => {
@@ -38,7 +38,7 @@ export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
   const [inputNote, setInputNote] = useState(note);
   const [inputTag, setInputTag] = useState(tag);
   const [inputRank, setInputRank] = useState(rank);
-  const [inputFav, setInputFav] = useState(fav);
+  const [inputisBuy, setInputisBuy] = useState(isBuy);
   const [photo, setPhoto] = useState<File | string>("");
   const [open, setOpen] = React.useState(false);
 
@@ -66,8 +66,8 @@ export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
     if (inputRank != null) {
       formData.append("rank", inputRank.toString());
     }
-    if (inputFav != null) {
-      formData.append("fav", inputFav.toString());
+    if (inputisBuy != null) {
+      formData.append("isBuy", inputisBuy.toString());
     }
     formData.append("file", photo);
     if (fileName != null) {
@@ -78,10 +78,10 @@ export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
   };
 
   const handleClickFev = () => {
-    if (inputFav === false) {
-      setInputFav(true);
+    if (inputisBuy === false) {
+      setInputisBuy(true);
     } else {
-      setInputFav(false);
+      setInputisBuy(false);
     }
   };
 
@@ -189,10 +189,10 @@ export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="MainTopPageFavImage">
-                  <div className="MainTopPageFav">
+                <div className="MainTopPageisBuyImage">
+                  <div className="MainTopPageisBuy">
                     <p>購入済み</p>
-                    {!inputFav ? (
+                    {!inputisBuy ? (
                       <button onClick={handleClickFev}>
                         <CreditScoreIcon sx={{ color: "gray" }} />
                       </button>
@@ -234,11 +234,11 @@ export const TaskItem: FC<Omit<Favorite, "createdAt" | "userId">> = ({
           <div className="GameCardTitle">{title}</div>
           <div className="GameCardNote">{note}</div>
           <div className="GameCardTag">#{tag}</div>
-          <div className="GameCardFavorite">
+          <div className="GameCardTumige">
             優先度
             <StarIcon sx={{ color: "#dbc28f" }} />
             {rank}・{dateString}
-            {fav && (
+            {isBuy && (
               <>
                 <CreditScoreIcon sx={{ color: green[700], ml: "2px" }} />
               </>
@@ -274,7 +274,7 @@ const GameCard = (props: GameCardProps) => {
       {tasks?.map((task) => (
         <>
           {(() => {
-            if (router.pathname == "/Favorite" && task.fav) {
+            if (router.pathname == "/isBuy" && task.isBuy) {
               return (
                 <>
                   <Grid item xs="auto">
@@ -285,14 +285,14 @@ const GameCard = (props: GameCardProps) => {
                       note={task.note}
                       tag={task.tag}
                       rank={task.rank}
-                      fav={task.fav}
+                      isBuy={task.isBuy}
                       updatedAt={task.updatedAt}
                       fileName={task.fileName}
                     />
                   </Grid>
                 </>
               );
-            } else if (router.pathname != "/Favorite" && value == undefined) {
+            } else if (router.pathname != "/isBuy" && value == undefined) {
               return (
                 <Grid item xs="auto">
                   <TaskItem
@@ -302,7 +302,7 @@ const GameCard = (props: GameCardProps) => {
                     note={task.note}
                     tag={task.tag}
                     rank={task.rank}
-                    fav={task.fav}
+                    isBuy={task.isBuy}
                     updatedAt={task.updatedAt}
                     fileName={task.fileName}
                   />
@@ -319,7 +319,7 @@ const GameCard = (props: GameCardProps) => {
                       note={task.note}
                       tag={task.tag}
                       rank={task.rank}
-                      fav={task.fav}
+                      isBuy={task.isBuy}
                       updatedAt={task.updatedAt}
                       fileName={task.fileName}
                     />
@@ -337,7 +337,7 @@ const GameCard = (props: GameCardProps) => {
                       note={task.note}
                       tag={task.tag}
                       rank={task.rank}
-                      fav={task.fav}
+                      isBuy={task.isBuy}
                       updatedAt={task.updatedAt}
                       fileName={task.fileName}
                     />
