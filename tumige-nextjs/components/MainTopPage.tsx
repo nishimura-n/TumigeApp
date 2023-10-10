@@ -27,7 +27,7 @@ const MainTopPage = () => {
   const [inputNote, setInputNote] = useState("");
   const [inputTag, setInputTag] = useState("");
   const [inputRank, setInputRank] = useState(1);
-  const [inputisBuy, setInputisBuy] = useState(false);
+  const [inputIsBuy, setInputIsBuy] = useState(false);
   const [photo, setPhoto] = useState<File | string>("");
   const [open, setOpen] = React.useState(false);
   const { createTaskMutation } = useMutateGame();
@@ -49,17 +49,17 @@ const MainTopPage = () => {
     formData.append("note", inputNote);
     formData.append("tag", inputTag);
     formData.append("rank", inputRank.toString());
-    formData.append("isBuy", inputisBuy.toString());
+    formData.append("isBuy", inputIsBuy.toString());
     formData.append("file", photo);
     createTaskMutation.mutate(formData);
     setOpen(false);
   };
 
   const handleClickFev = () => {
-    if (inputisBuy === false) {
-      setInputisBuy(true);
+    if (inputIsBuy === false) {
+      setInputIsBuy(true);
     } else {
-      setInputisBuy(false);
+      setInputIsBuy(false);
     }
   };
 
@@ -166,10 +166,10 @@ const MainTopPage = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="MainTopPageisBuyImage">
-              <div className="MainTopPageisBuy">
+            <div className="MainTopPageIsBuyImage">
+              <div className="MainTopPageIsBuy">
                 <p>購入済み</p>
-                {!inputisBuy ? (
+                {!inputIsBuy ? (
                   <button onClick={handleClickFev}>
                     <CreditScoreIcon sx={{ color: "gray" }} />
                   </button>

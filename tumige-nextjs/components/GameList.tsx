@@ -38,7 +38,7 @@ export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
   const [inputNote, setInputNote] = useState(note);
   const [inputTag, setInputTag] = useState(tag);
   const [inputRank, setInputRank] = useState(rank);
-  const [inputisBuy, setInputisBuy] = useState(isBuy);
+  const [inputIsBuy, setInputIsBuy] = useState(isBuy);
   const [photo, setPhoto] = useState<File | string>("");
   const [open, setOpen] = React.useState(false);
 
@@ -66,8 +66,8 @@ export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
     if (inputRank != null) {
       formData.append("rank", inputRank.toString());
     }
-    if (inputisBuy != null) {
-      formData.append("isBuy", inputisBuy.toString());
+    if (inputIsBuy != null) {
+      formData.append("isBuy", inputIsBuy.toString());
     }
     formData.append("file", photo);
     if (fileName != null) {
@@ -78,10 +78,10 @@ export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
   };
 
   const handleClickFev = () => {
-    if (inputisBuy === false) {
-      setInputisBuy(true);
+    if (inputIsBuy === false) {
+      setInputIsBuy(true);
     } else {
-      setInputisBuy(false);
+      setInputIsBuy(false);
     }
   };
 
@@ -209,7 +209,7 @@ export const TaskItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
                 <div className="MainTopPageisBuyImage">
                   <div className="MainTopPageisBuy">
                     <p>購入済み</p>
-                    {!inputisBuy ? (
+                    {!inputIsBuy ? (
                       <button onClick={handleClickFev}>
                         <CreditScoreIcon sx={{ color: "gray" }} />
                       </button>

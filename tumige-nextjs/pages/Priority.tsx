@@ -3,7 +3,7 @@ import { Layout } from "../components/Layout";
 import Sidebar from "@/components/Sidebar";
 import MainPage from "@/components/MainPage";
 
-const Tumige: NextPage = () => {
+const Priority: NextPage = () => {
   return (
     <Layout title="積みゲー保管庫">
       <div className="content">
@@ -14,4 +14,4 @@ const Tumige: NextPage = () => {
   );
 };
 
-export default Tumige;
+export default Priority;
