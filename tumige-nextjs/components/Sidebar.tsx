@@ -20,6 +20,7 @@ import Filter1Icon from "@mui/icons-material/Filter1";
 import { Button, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { useTasks } from "@/hooks/useTasks";
+import { useQueryUser } from "@/hooks/useQueryUser";
 
 const Sidebar = () => {
   const styles = {
@@ -46,6 +47,7 @@ const Sidebar = () => {
   const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [priority, setPriority] = React.useState<boolean>(false);
+  const [userName, setUserName] = React.useState<string>("名無しさん");
   let isBuycount = 0;
   let Priority5count = 0;
   let Priority4count = 0;
@@ -74,9 +76,16 @@ const Sidebar = () => {
     router.push("/");
   };
 
+  const { data: user } = useQueryUser();
   const { data: tasks } = useTasks();
   const [tags, setTags] = useState<string[]>([]);
+
   useEffect(() => {
+    if (user != undefined && user.nickName != null) {
+      setUserName(user.nickName);
+    } else {
+      setUserName("名無しさん");
+    }
     if (tasks != undefined) {
       const newTags = tags.slice();
       for (const task of tasks) {
@@ -86,7 +95,7 @@ const Sidebar = () => {
       }
       setTags(newTags);
     }
-  }, [tasks]);
+  }, [user, tasks]);
   const uniqueTags = tags.filter((value, index, self) => {
     return self.indexOf(value) === index;
   });
@@ -97,7 +106,7 @@ const Sidebar = () => {
         <div className="sidebar_account_Left">
           <Button onClick={handleClick} sx={styles.button} variant="text">
             <AccountCircleIcon />
-            <p>Akaikitune</p>
+            <p>{userName}</p>
             <ArrowDropDownOutlinedIcon />
           </Button>
         </div>
