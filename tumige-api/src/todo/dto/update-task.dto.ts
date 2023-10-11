@@ -19,7 +19,7 @@ export class UpdateTaskDto {
 
   @IsString()
   @IsOptional()
-  fav: string;
+  isBuy: string;
 
   @IsString()
   @IsOptional()

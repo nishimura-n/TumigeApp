@@ -280,28 +280,28 @@ html {
   font-size: 1rem;
 }
 
-.MainTopPageFav {
+.MainTopPageIsBuy {
   margin-left: -20px;
   margin-top: -12px;
   padding-right: 12px;
 }
 
-.MainTopPageFav p {
+.MainTopPageIsBuy p {
   width: 11vh;
 }
 
-.MainTopPageFav button {
+.MainTopPageIsBuy button {
   background-color: #2a2b2c;
   border: #454545 1px solid;
 }
 
-.MainTopPageFav svg {
+.MainTopPageIsBuy svg {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.MainTopPageFavImage {
+.MainTopPageIsBuyImage {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -450,13 +450,13 @@ input[type="file"]::file-selector-button {
   color: #dbc28f;
 }
 
-.GameListFavorite {
+.GameListTumige {
   display: flex;
   align-items: center;
   font-size: 0.9rem;
 }
 
-.GameListFavorite SVG {
+.GameListTumige SVG {
   font-size: 1rem;
 }
 
@@ -537,13 +537,13 @@ input[type="file"]::file-selector-button {
   color: #dbc28f;
 }
 
-.GameCardFavorite {
+.GameCardTumige {
   display: flex;
   align-items: center;
   font-size: 0.8rem;
 }
 
-.GameCardFavorite SVG {
+.GameCardTumige SVG {
   font-size: 1rem;
 }
 

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { Favorite } from "@prisma/client";
+import { Tumige } from "@prisma/client";
 import useStore from "../store";
 import { EditedTask } from "../types";
 
@@ -25,7 +25,7 @@ export const useMutateGame = () => {
     },
     {
       onSuccess: (res) => {
-        const previousTodos = queryClient.getQueryData<Favorite[]>(["tasks"]);
+        const previousTodos = queryClient.getQueryData<Tumige[]>(["tasks"]);
         if (previousTodos) {
           queryClient.setQueryData(["tasks"], [res, ...previousTodos]);
         }
@@ -49,7 +49,7 @@ export const useMutateGame = () => {
     },
     {
       onSuccess: (res, variables) => {
-        const previousTodos = queryClient.getQueryData<Favorite[]>(["tasks"]);
+        const previousTodos = queryClient.getQueryData<Tumige[]>(["tasks"]);
         if (previousTodos) {
           queryClient.setQueryData(
             ["tasks"],
@@ -72,7 +72,7 @@ export const useMutateGame = () => {
     },
     {
       onSuccess: (_, variables) => {
-        const previousTodos = queryClient.getQueryData<Favorite[]>(["tasks"]);
+        const previousTodos = queryClient.getQueryData<Tumige[]>(["tasks"]);
         if (previousTodos) {
           queryClient.setQueryData(
             ["tasks"],

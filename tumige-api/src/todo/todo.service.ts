@@ -2,15 +2,15 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Favorite } from '@prisma/client';
+import { Tumige } from '@prisma/client';
 import * as fs from 'fs';
 
 @Injectable()
 export class TodoService {
   constructor(private prisma: PrismaService) {}
 
-  getTasks(userId: number): Promise<Favorite[]> {
-    return this.prisma.favorite.findMany({
+  getTasks(userId: number): Promise<Tumige[]> {
+    return this.prisma.tumige.findMany({
       where: {
         userId,
       },
@@ -19,8 +19,8 @@ export class TodoService {
       },
     });
   }
-  getTaskById(userId: number, taskId: number): Promise<Favorite> {
-    return this.prisma.favorite.findFirst({
+  getTaskById(userId: number, taskId: number): Promise<Tumige> {
+    return this.prisma.tumige.findFirst({
       where: {
         userId,
         id: taskId,
@@ -32,15 +32,15 @@ export class TodoService {
     userId: number,
     dto: CreateTaskDto,
     fileName: string,
-  ): Promise<Favorite> {
-    const task = await this.prisma.favorite.create({
+  ): Promise<Tumige> {
+    const task = await this.prisma.tumige.create({
       data: {
         userId,
         title: dto.title,
         note: dto.note,
         rank: parseInt(dto.rank, 10),
         tag: dto.tag,
-        fav: JSON.parse(dto.fav),
+        isBuy: JSON.parse(dto.isBuy),
         fileName,
       },
     });
@@ -52,8 +52,8 @@ export class TodoService {
     taskId: number,
     dto: UpdateTaskDto,
     fileName: string,
-  ): Promise<Favorite> {
-    const task = await this.prisma.favorite.findUnique({
+  ): Promise<Tumige> {
+    const task = await this.prisma.tumige.findUnique({
       where: {
         id: taskId,
       },
@@ -65,7 +65,7 @@ export class TodoService {
     if (!task || task.userId !== userId)
       throw new ForbiddenException('No permission to update');
 
-    return this.prisma.favorite.update({
+    return this.prisma.tumige.update({
       where: {
         id: taskId,
       },
@@ -75,13 +75,13 @@ export class TodoService {
         note: dto.note,
         rank: parseInt(dto.rank, 10),
         tag: dto.tag,
-        fav: JSON.parse(dto.fav),
+        isBuy: JSON.parse(dto.isBuy),
         fileName,
       },
     });
   }
   async deleteTaskById(userId: number, taskId: number): Promise<void> {
-    const task = await this.prisma.favorite.findUnique({
+    const task = await this.prisma.tumige.findUnique({
       where: {
         id: taskId,
       },
@@ -94,7 +94,7 @@ export class TodoService {
       await fs.promises.unlink('../tumige-nextjs/public/' + task.fileName);
     }
 
-    await this.prisma.favorite.delete({
+    await this.prisma.tumige.delete({
       where: {
         id: taskId,
       },
