@@ -3,7 +3,6 @@ import axios from "axios";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Tumige } from "@prisma/client";
 import useStore from "../store";
-import { EditedTask } from "../types";
 
 export const useMutateGame = () => {
   const queryClient = useQueryClient();
