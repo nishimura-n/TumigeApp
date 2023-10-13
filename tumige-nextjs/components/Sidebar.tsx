@@ -56,7 +56,7 @@ const Sidebar = () => {
   const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [priority, setPriority] = React.useState<boolean>(false);
-  const [userName, setUserName] = React.useState<string>("名無しさん");
+  const [userName, setUserName] = React.useState<string>("");
   const { updateUserName } = useMutateUser();
   const [dialogOpen, setDialogOpen] = React.useState(false);
   let isBuycount = 0;
