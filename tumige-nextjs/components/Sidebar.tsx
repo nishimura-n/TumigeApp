@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -17,9 +17,19 @@ import Filter4Icon from "@mui/icons-material/Filter4";
 import Filter3Icon from "@mui/icons-material/Filter3";
 import Filter2Icon from "@mui/icons-material/Filter2";
 import Filter1Icon from "@mui/icons-material/Filter1";
-import { Button, Menu, MenuItem } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import Link from "next/link";
 import { useTasks } from "@/hooks/useTasks";
+import { useQueryUser } from "@/hooks/useQueryUser";
+import { useMutateUser } from "@/hooks/useMutateUser";
 
 const Sidebar = () => {
   const styles = {
@@ -46,6 +56,9 @@ const Sidebar = () => {
   const queryClient = useQueryClient();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [priority, setPriority] = React.useState<boolean>(false);
+  const [userName, setUserName] = React.useState<string>("");
+  const { updateUserName } = useMutateUser();
+  const [dialogOpen, setDialogOpen] = React.useState(false);
   let isBuycount = 0;
   let Priority5count = 0;
   let Priority4count = 0;
@@ -62,8 +75,30 @@ const Sidebar = () => {
     setAnchorEl(null);
   };
 
+  const dialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserName(value);
+  };
+
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (user != undefined) {
+      updateUserName.mutate(userName);
+    }
+    setDialogOpen(false);
+  };
+
   const handlePriority = () => {
     setPriority(!priority);
+  };
+
+  const changeName = () => {
+    setDialogOpen(true);
+    setAnchorEl(null);
   };
 
   const logout = async () => {
@@ -74,9 +109,16 @@ const Sidebar = () => {
     router.push("/");
   };
 
+  const { data: user } = useQueryUser();
   const { data: tasks } = useTasks();
   const [tags, setTags] = useState<string[]>([]);
+
   useEffect(() => {
+    if (user != undefined && user.nickName != null) {
+      setUserName(user.nickName);
+    } else {
+      setUserName("名無しさん");
+    }
     if (tasks != undefined) {
       const newTags = tags.slice();
       for (const task of tasks) {
@@ -86,7 +128,7 @@ const Sidebar = () => {
       }
       setTags(newTags);
     }
-  }, [tasks]);
+  }, [user, tasks]);
   const uniqueTags = tags.filter((value, index, self) => {
     return self.indexOf(value) === index;
   });
@@ -97,7 +139,7 @@ const Sidebar = () => {
         <div className="sidebar_account_Left">
           <Button onClick={handleClick} sx={styles.button} variant="text">
             <AccountCircleIcon />
-            <p>Akaikitune</p>
+            <p>{userName}</p>
             <ArrowDropDownOutlinedIcon />
           </Button>
         </div>
@@ -249,27 +291,27 @@ const Sidebar = () => {
         </>
       )}
       <div className="classification">タグ</div>
-      {uniqueTags?.map((Tag) => (
-        <>
-          {(() => {
-            if (tasks != undefined) {
-              Tagcount = tasks.filter((n) => n.tag === Tag).length;
-            }
-          })()}
-          <Link className="sidebar_Link" href={`/Tag?value=${Tag}`}>
-            <div className="sidebar_box">
-              <TagIcon sx={{ color: "#95979c" }} />
-              {Tag != "" ? <p>{Tag}</p> : <p>タグなし</p>}
-              <div className="sidebarCount">{Tagcount}</div>
-            </div>
-          </Link>
-        </>
-      ))}
+      {uniqueTags?.map((Tag) => {
+        if (tasks != undefined) {
+          Tagcount = tasks.filter((n) => n.tag === Tag).length;
+        }
+        return (
+          <>
+            <Link className="sidebar_Link" href={`/Tag?value=${Tag}`}>
+              <div className="sidebar_box">
+                <TagIcon sx={{ color: "#95979c" }} />
+                {Tag != "" ? <p>{Tag}</p> : <p>タグなし</p>}
+                <div className="sidebarCount">{Tagcount}</div>
+              </div>
+            </Link>
+          </>
+        );
+      })}
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <div className="MenuItem">
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={changeName}>
             <SettingsIcon />
-            <div className="MenuItemText">設定</div>
+            <div className="MenuItemText">名前の変更</div>
           </MenuItem>
           <MenuItem onClick={logout}>
             <LogoutIcon />
@@ -277,6 +319,49 @@ const Sidebar = () => {
           </MenuItem>
         </div>
       </Menu>
+      <Dialog
+        open={dialogOpen}
+        onClose={dialogClose}
+        BackdropProps={{
+          invisible: true,
+        }}
+        sx={{
+          "& .MuiDialog-paper": {
+            border: "1px solid #454545", // 枠線の設定
+          },
+        }}>
+        <DialogTitle
+          sx={{
+            fontSize: "1.5rem",
+            color: "#dbc28f",
+            backgroundColor: "#2A2B2C",
+            mb: "-25px",
+          }}>
+          名前の変更
+        </DialogTitle>
+        <DialogContent sx={{ color: "#96979d", backgroundColor: "#2A2B2C" }}>
+          <div className="MainTopPageInputs">
+            <div>
+              <p>　</p>
+              <input
+                type="text"
+                placeholder="名前を入力してください．"
+                name="InputName"
+                value={userName}
+                onChange={handleChangeName}
+              />
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions sx={{ backgroundColor: "#2A2B2C" }}>
+          <Button onClick={dialogClose} sx={styles.button}>
+            キャンセル
+          </Button>
+          <Button onClick={handleSubmit} sx={styles.button}>
+            更新
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

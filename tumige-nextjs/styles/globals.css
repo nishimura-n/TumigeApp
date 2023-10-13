@@ -98,7 +98,7 @@ html {
 /* sidebarのcss */
 .sidebar {
   position: relative;
-  flex: 2.25;
+  width: 260px;
   color: #c8cacf;
   background-color: #232325;
   height: 100vh;

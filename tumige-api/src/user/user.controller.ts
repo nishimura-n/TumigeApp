@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { UserService } from './user.service';
@@ -18,8 +27,8 @@ export class UserController {
   @Patch()
   updateUser(
     @Req() req: Request,
-    @Body() dto: UpdateUserDto,
+    @Body() NewName: string,
   ): Promise<Omit<User, 'hashedPassword'>> {
-    return this.userService.updateUser(req.user.id, dto);
+    return this.userService.updateUser(req.user.id, Object.keys(NewName)[0]);
   }
 }
