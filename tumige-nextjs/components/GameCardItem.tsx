@@ -4,9 +4,9 @@ import { green } from "@mui/material/colors";
 import { FC } from "react";
 import { Tumige } from "@prisma/client";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
-import AddGameForm from "./AddGameForm";
+import UpdateGameForm from "./UpdateGameForm";
 
-export const GameItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
+export const GameCardItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
   id,
   title,
   note,
@@ -27,7 +27,7 @@ export const GameItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
       <div className="GameCardContent">
         <div className="hoverText">
           <button onClick={handleClickOpen}>編集</button>
-          <AddGameForm
+          <UpdateGameForm
             id={id}
             title={title}
             note={note}

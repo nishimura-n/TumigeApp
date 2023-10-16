@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 
-type AddGameFormProps = {
+type UpdateGameFormProps = {
   id: number;
   title: string;
   note: string | null;
@@ -20,7 +20,7 @@ type AddGameFormProps = {
   onValueChange: () => void;
 };
 
-const AddGameForm: React.FC<AddGameFormProps> = ({
+const AddGameForm: React.FC<UpdateGameFormProps> = ({
   id,
   title,
   note,
