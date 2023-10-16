@@ -9,12 +9,13 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import TagIcon from "@mui/icons-material/Tag";
 import { green } from "@mui/material/colors";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
+import {
+  MainPageDisplayAscDate,
+  MainPageDisplayDescDate,
+} from "./MainPageAtoms";
 
 const MainPage = () => {
   const styles = {
@@ -116,9 +117,7 @@ const MainPage = () => {
                   <div
                     className="MainPageMenuItemText"
                     style={{ color: "#dbc28f" }}>
-                    <AccessTimeIcon />
-                    <div className="MainPageMenuItemDivText">日付</div>
-                    <ArrowUpwardIcon />
+                    <MainPageDisplayDescDate />
                   </div>
                 ) : (
                   <>
@@ -126,9 +125,7 @@ const MainPage = () => {
                       <div
                         className="MainPageMenuItemText"
                         style={{ color: "#dbc28f" }}>
-                        <AccessTimeIcon />
-                        <div className="MainPageMenuItemDivText">日付</div>
-                        <ArrowDownwardIcon />
+                        <MainPageDisplayAscDate />
                       </div>
                     ) : (
                       <>
@@ -149,15 +146,11 @@ const MainPage = () => {
                       <div
                         className="MainPageMenuItemText"
                         style={{ color: "#dbc28f" }}>
-                        <AccessTimeIcon />
-                        <div className="MainPageMenuItemDivText">日付</div>
-                        <ArrowUpwardIcon />
+                        <MainPageDisplayDescDate />
                       </div>
                     ) : (
                       <div className="MainPageMenuItemText">
-                        <AccessTimeIcon />
-                        <div className="MainPageMenuItemDivText">日付</div>
-                        <ArrowUpwardIcon />
+                        <MainPageDisplayDescDate />
                       </div>
                     )}
                   </MenuItem>
@@ -166,15 +159,11 @@ const MainPage = () => {
                       <div
                         className="MainPageMenuItemText"
                         style={{ color: "#dbc28f" }}>
-                        <AccessTimeIcon />
-                        <div className="MainPageMenuItemDivText">日付</div>
-                        <ArrowDownwardIcon />
+                        <MainPageDisplayAscDate />
                       </div>
                     ) : (
                       <div className="MainPageMenuItemText">
-                        <AccessTimeIcon />
-                        <div className="MainPageMenuItemDivText">日付</div>
-                        <ArrowDownwardIcon />
+                        <MainPageDisplayAscDate />
                       </div>
                     )}
                   </MenuItem>
@@ -231,7 +220,6 @@ const MainPage = () => {
                 </div>
               </Menu>
             </div>
-            {/* <MoreHorizIcon /> */}
           </div>
         </div>
         <div className="MainPageborder"></div>
