@@ -1,12 +1,12 @@
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { green } from "@mui/material/colors";
+import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { FC } from "react";
 import { Tumige } from "@prisma/client";
-import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import UpdateGameForm from "./UpdateGameForm";
 
-export const GameCardItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
+export const GameListItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
   id,
   title,
   note,
@@ -24,7 +24,23 @@ export const GameCardItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
 
   return (
     <>
-      <div className="GameCardContent">
+      <div className="GameListContent">
+        <img className="GameListImg" src={`./${fileName}`} />
+        <div className="GameListContentDetail">
+          <div className="GameListTitle">{title}</div>
+          <div className="GameListNote">{note}</div>
+          <div className="GameListTag">#{tag}</div>
+          <div className="GameListTumige">
+            優先度
+            <StarIcon sx={{ color: "#dbc28f" }} />
+            {rank}・{dateString}
+            {isBuy && (
+              <>
+                <CreditScoreIcon sx={{ color: green[700], ml: "2px" }} />
+              </>
+            )}
+          </div>
+        </div>
         <div className="hoverText">
           <button onClick={handleClickOpen}>編集</button>
           <UpdateGameForm
@@ -38,22 +54,6 @@ export const GameCardItem: FC<Omit<Tumige, "createdAt" | "userId">> = ({
             checkOpen={open}
             onValueChange={handleClickOpen}
           />
-        </div>
-        <img className="GameCardImg" src={`${fileName}`} />
-        <div className="GameCardContentDetail">
-          <div className="GameCardTitle">{title}</div>
-          <div className="GameCardNote">{note}</div>
-          <div className="GameCardTag">#{tag}</div>
-          <div className="GameCardTumige">
-            優先度
-            <StarIcon sx={{ color: "#dbc28f" }} />
-            {rank}・{dateString}
-            {isBuy && (
-              <>
-                <CreditScoreIcon sx={{ color: green[700], ml: "2px" }} />
-              </>
-            )}
-          </div>
         </div>
       </div>
     </>
