@@ -20,7 +20,7 @@ type UpdateGameFormProps = {
   onValueChange: () => void;
 };
 
-const AddGameForm: React.FC<UpdateGameFormProps> = ({
+const UpdateGameForm: React.FC<UpdateGameFormProps> = ({
   id,
   title,
   note,
@@ -236,4 +236,4 @@ const AddGameForm: React.FC<UpdateGameFormProps> = ({
   );
 };
 
-export default AddGameForm;
+export default UpdateGameForm;
